@@ -1,22 +1,47 @@
+import { useState } from "react";
 import React from "react";
 
 export const Task = () => {
+    //const nuevoTodo = "tarea de ejemplo";
+    const [nuevoTodo, setnuevoTodo] = useState("Tarea nueva");
+    const [todo, setTodo] = useState (["Una tarea de prueba"])
+ 
+    const handleClick = () => {
+        console.log("Nueva tarea", nuevoTodo);
+        setTodo([...todo, nuevoTodo])
+    }
 
+    const deleteTask = (index) => {
+        console.log(index);
+        const listaNueva = todo.filter ((todo, i) => i !== index )
+        setTodo([...todo, nuevoTodo])
+    }
+
+    const handleChange = (event) => {
+        setnuevoTodo [event.target.value];
+    }
 
     return (
         
         <div className="container">
             <p>Hola soy task</p>
+                <div>
+                <input type="text" onChange={handleChange} />
+                <button onClick={handleClick}>Task</button>
+                </div>
+                <p>Nueva tarea: {nuevoTodo}</p>
             <ul>
-                <input type="text" />
-                <li>landing page whit react</li>
-                <li>A navbar component</li>
-                <li>Connect some api´s</li>
-                <li>Take time for your own project </li>
-                <li>Take some momment to read documentation </li>
-                <li>Keep taking hits by the code </li>
+               {todo.map((todo, index) => {
+                
+                return(
+                    <li>
+                        {todo} <button onClick={""}>Delete task</button>
+                    </li>
+
+                )
+               })}
             </ul>
         </div>
-    )
+    );
 
-}
+};
