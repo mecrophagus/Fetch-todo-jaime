@@ -1,8 +1,9 @@
 import React from "react";
 import { Task } from "./Task.jsx";
+import { UserJPH } from "./UsersJPH.jsx";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+
 
 //create your first component
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
 			<h1 className="text-center mt-5"> 
 				To-Do list, whit some fetch
 			</h1>
+			< UserJPH />
 			< Task />
 		</div>
 	);
