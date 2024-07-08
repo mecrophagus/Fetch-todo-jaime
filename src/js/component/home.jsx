@@ -13,7 +13,7 @@ const Home = () => {
 				To-Do list, whit some fetch
 			</h1>
 			< UserJPH />
-			< Task />
+			¨{/*< Task />*/}
 		</div>
 	);
 };
