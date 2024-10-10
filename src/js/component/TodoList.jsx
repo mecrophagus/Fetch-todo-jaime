@@ -3,23 +3,21 @@ import TodoForm from "./TodoForm";
 import TodoItemList from "./TodoItemList";
 
 export const TodoList = () => {
-    const [todos, setTodos] = useState([]); // Estado para las tareas
-    const apiUrl = "https://playground.4geeks.com/todo"; // URL de la API
+    const [todos, setTodos] = useState([]);
+    const apiUrl = "https://playground.4geeks.com/todo";
 
-    // Obtener las tareas cuando el componente se monta
     useEffect(() => {
         const fetchTodos = async () => {
             const response = await fetch(`${apiUrl}/master`, { method: "GET" });
             if (response.ok) {
                 const data = await response.json();
-                setTodos(data); // Actualiza el estado con los datos de la API
+                setTodos(data);
             }
         };
 
         fetchTodos();
     }, []);
 
-    // Actualizar la lista de tareas en el servidor (PUT)
     const updateTodos = async (updatedTodos) => {
         const response = await fetch(`${apiUrl}/master`, {
             method: "PUT",
@@ -27,35 +25,36 @@ export const TodoList = () => {
             body: JSON.stringify(updatedTodos),
         });
         if (response.ok) {
-            setTodos(updatedTodos); // Actualiza el estado si la respuesta es exitosa
+            setTodos(updatedTodos);
         }
     };
 
-    // Agregar una nueva tarea
     const addTodo = (newTodo) => {
         const updatedTodos = [...todos, { label: newTodo, done: false }];
-        updateTodos(updatedTodos); // Sincronizar con la API
+        updateTodos(updatedTodos);
     };
 
-    // Eliminar una tarea
     const deleteTodo = (index) => {
         const updatedTodos = todos.filter((_, i) => i !== index);
-        updateTodos(updatedTodos); // Actualiza la lista y sincroniza
+        updateTodos(updatedTodos);
     };
 
-    // Limpiar todas las tareas
     const clearTodos = () => {
-        updateTodos([]); // Vacía la lista local y en el servidor
+        updateTodos([]);
     };
 
     return (
-        <div className="container">
-            <h1>Lista de Tareas</h1>
-            <TodoForm addTodo={addTodo} /> {/* Formulario para agregar nuevas tareas */}
-            <TodoItemList todos={todos} deleteTodo={deleteTodo} /> {/* Lista de tareas */}
-            <button className="btn btn-warning mt-3" onClick={clearTodos}>
-                Limpiar Tareas
-            </button>
+        <div className="container mt-3">
+            <h1 className="text-center">Lista de Tareas</h1>
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-8">
+                    <TodoForm addTodo={addTodo} />
+                    <TodoItemList todos={todos} deleteTodo={deleteTodo} />
+                    <button className="btn btn-warning w-100 mt-3" onClick={clearTodos}>
+                        Limpiar Tareas
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
